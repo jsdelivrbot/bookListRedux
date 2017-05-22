@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class BookList extends Component {
+class BookList extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state({ term: '' });
     }
 
     renderList() {
@@ -19,6 +22,11 @@ export default class BookList extends Component {
             <ul className="list-group col-sm-4">
                 {this.renderList()}
             </ul>
-        )
+        );
     }
+}
+
+function mapStateToProps(state){
+    //ottaa sovelluksen tilan propsiksi
+
 }
