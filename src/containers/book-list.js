@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { selectBook } from '../actions/index';
+
 
 class BookList extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state({ term: '' });
-    }
 
     renderList() {
         return this.props.books.map((book) => {
             return (
-                <li key={book.title} className="list-group-item">{book.title}</li>
+                <li
+                    onClick={() => this.props.testi(book)}
+                    key={book.title}
+                    className="list-group-item">
+                    {book.title}
+                </li>
             );
         });
     }
@@ -26,7 +28,16 @@ class BookList extends Component {
     }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     //ottaa sovelluksen tilan propsiksi
-
+    return {
+        books: state.books
+    };
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ testi: selectBook }, dispatch);
+    //lahettaa tuodun actionin kaikille reducereille 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);
